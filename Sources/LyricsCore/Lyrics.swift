@@ -35,7 +35,7 @@ final public class Lyrics: LosslessStringConvertible {
             }
         }
         
-        let lines = lyricsLineRegex.matches(in: description).flatMap { match -> [LyricsLine] in
+        var lines = lyricsLineRegex.matches(in: description).flatMap { match -> [LyricsLine] in
             let timeTagStr = match[1]!.string
             let timeTags = resolveTimeTag(timeTagStr)
             
