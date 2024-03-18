@@ -25,7 +25,7 @@ func resolveTimeTag(_ str: String) -> [TimeInterval] {
         let matchs = timeTagRegex2.matches(in: str)
 
         return matchs.map { match in
-                let hou = Double(match[1]!.content);
+                let hou = Double(match[1]!.content)!
                 let min = Double(match[2]!.content)!
                 let sec = Double(match[3]!.content)!
                 return hou * 60 * 60 + min * 60 + sec
