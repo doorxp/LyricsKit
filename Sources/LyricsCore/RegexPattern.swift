@@ -11,14 +11,27 @@ import Foundation
 @_implementationOnly import Regex
 
 private let timeTagRegex = Regex(#"\[([-+]?\d+):(\d+(?:\.\d+)?)\]"#)
-private let timeTagRegex2 = Regex(#"^([-+]?\d+):(\d+(?:\.\d+)?)$"#)
+private let timeTagRegex2 = Regex(#"^(\d+):(\d+):(\d+)$"#)
 func resolveTimeTag(_ str: String) -> [TimeInterval] {
-    let matchs = (str.hasPrefix("[") ? timeTagRegex : timeTagRegex2).matches(in: str)
-    return matchs.map { match in
-        let min = Double(match[1]!.content)!
-        let sec = Double(match[2]!.content)!
-        return min * 60 + sec
+    if str.hasPrefix("[") {
+        let matchs = timeTagRegex.matches(in: str)
+        return matchs.map { match in
+            let min = Double(match[1]!.content)!
+            let sec = Double(match[2]!.content)!
+            return min * 60 + sec
+        }
     }
+    else {
+        let matchs = timeTagRegex2.matches(in: str)
+
+        return matchs.map { match in
+                let hou = Double(match[1]!.content);
+                let min = Double(match[2]!.content)!
+                let sec = Double(match[3]!.content)!
+                return hou * 60 * 60 + min * 60 + sec
+        }
+    }
+    
 }
 
 let id3TagRegex = Regex(#"^(?!\[[+-]?\d+:\d+(?:\.\d+)?\])\[(.+?):(.+)\]$"#, options: .anchorsMatchLines)
