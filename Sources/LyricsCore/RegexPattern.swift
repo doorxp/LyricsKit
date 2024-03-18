@@ -11,8 +11,9 @@ import Foundation
 @_implementationOnly import Regex
 
 private let timeTagRegex = Regex(#"\[([-+]?\d+):(\d+(?:\.\d+)?)\]"#)
+private let timeTagRegex2 = Regex(#"^([-+]?\d+):(\d+(?:\.\d+)?)$"#)
 func resolveTimeTag(_ str: String) -> [TimeInterval] {
-    let matchs = timeTagRegex.matches(in: str)
+    let matchs = (str.hasPrefix("[") ? timeTagRegex : timeTagRegex2).matches(in: str)
     return matchs.map { match in
         let min = Double(match[1]!.content)!
         let sec = Double(match[2]!.content)!
