@@ -24,6 +24,8 @@ let id3TagRegex = Regex(#"^(?!\[[+-]?\d+:\d+(?:\.\d+)?\])\[(.+?):(.+)\]$"#, opti
 
 let lyricsLineRegex = Regex(#"^(\[[+-]?\d+:\d+(?:\.\d+)?\])+(?!\[)([^【\n\r]*)(?:【(.*)】)?"#, options: .anchorsMatchLines)
 
+let srtLineRegex = Regex(#"^[0-9]+ *\n(\d+:\d+:\d+),\d{3}.*?\n(.*?)[\n]+"#, options: .anchorsMatchLines)
+
 let base60TimeRegex = Regex(#"^\s*(?:(\d+):)?(\d+(?:.\d+)?)\s*$"#)
 
 let lyricsLineAttachmentRegex = Regex(#"^(\[[+-]?\d+:\d+(?:\.\d+)?\])+\[(.+?)\](.*)"#, options: .anchorsMatchLines)
