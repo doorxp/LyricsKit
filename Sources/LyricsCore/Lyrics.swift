@@ -64,9 +64,12 @@ final public class Lyrics: LosslessStringConvertible {
                 let lyricsContentStr = match[2]!.string
                 var line = LyricsLine(content: lyricsContentStr, position: 0)
                 
-                if let translationStr = match[3]?.string, !translationStr.isEmpty {
-                    line.attachments[.translation()] = translationStr
+                if match.length>=3 {
+                    if let translationStr = match[3]?.string, !translationStr.isEmpty {
+                        line.attachments[.translation()] = translationStr
+                    }
                 }
+
                 
                 return timeTags.map { timeTag in
                     var l = line
